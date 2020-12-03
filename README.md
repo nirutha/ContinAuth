@@ -1,13 +1,5 @@
 # Continuous Authentication using Inertial-Sensors of Smartphones and Deep Learning
 
-***Master Thesis,<br>
-June 28th, 2019<br>
-University of Media, Stuttgart (DE)<br>
-Data Science & Business Analytics<br>***
-
-## Errata
-> If you identify any issues or irregularities in my project, [please let me know!](https://github.com/dynobo/ContinAuth/issues) I'm very eager to learn from my mistakes and will share them right here for everyone to benefit.
-
 ## Project Description
 **Description**<br>
 Implementation of a "Continuous Authentication" approach based on inertial sensor data of smartphones. The ensemble model, proposed by Centeno et al. (2018), consists of a Siamese CNN for deep feature learning and an OCSVM for classification. A standard OCSVM with raw data input is used as baseline.
@@ -17,32 +9,22 @@ Attempt to reproduce results reported in the original study.<br>
 Evaluate approach in scenario closer to real-world setting.<br>
 Propose alternative variant of the original approach.<br>
 
-**Timeline**<br>
-Dec. 2018 - Jun. 2019
-
-**Cite**<br>
-- H. Buech (2019). "Continuous Authentication using Inertial-Sensors of Smartphones and Deep Learning". Master thesis. Hochschule der Medien, Stuttgart. URN: [urn:nbn:de:bsz:900-opus4-65060](https://hdms.bsz-bw.de/frontdoor/index/index/docId/6506) ([BibTex](https://raw.githubusercontent.com/dynobo/ContinAuth/master/CITATION_THESIS.bib))
-- H. Buech (2019). ContinAuth, GitHub repository. URL: https://github.com/dynobo/ContinAuth ([BibTex](https://raw.githubusercontent.com/dynobo/ContinAuth/master/CITATION_REPO.bib))
-
-## Background
-
-The legitimacy of users is of great importance for the security of information systems. The authentication process is a trade-off between system security and user experience. E.g., forced password complexity or multi-factor authentication can increase protection, but the application becomes more cumbersome for the users. Therefore, it makes sense to investigate whether the identity of a user can be verified reliably enough, without his active participation, to replace or supplement existing login processes.
-
-This master thesis examines if the inertial sensors of a smartphone can be leveraged to continuously determine whether the device is currently in possession of its legitimate owner or by another person. To this end, an approach proposed in related studies will be implemented and examined in detail. This approach is based on the use of a so-called Siamese artificial neural network to transform the measured values of the sensors into another vector that can be classified more reliably.
 
 ## Project's directory structure
 
-This project is structured after a setup proposed in a [tutorial on kdnuggets.com](https://www.kdnuggets.com/2018/07/cookiecutter-data-science-organize-data-project.html):
+This project's source code is based on the structure and implementation proposed by   
+- H. Buech (2019). "Continuous Authentication using Inertial-Sensors of Smartphones and Deep Learning". Master thesis. Hochschule der Medien, Stuttgart. URN:[urn:nbn:de:bsz:900-opus4-65060](https://hdms.bsz-bw.de/frontdoor/index/index/docId/6506)
+  
 
 ```
-├── README.md          <- The top-level README for developers using this project.
-├── LICENSE            <- MIT License.
+├── README.md          <- The top-level README for understanding this project.
+├── LICENSE            <- MIT License of the referenced source code.
 ├── data
 │   ├── external       <- Data from third party sources. (Extracted H-MOG CSV files)
 │   └── processed      <- The final, canonical data sets for modeling. (Transformed in HDF)
 │
-├── notebooks          <- Jupyter notebooks. Named after the chapter of the thesis,
-│                         where the results are discussed.
+├── notebooks          <- Jupyter notebooks. Consists of OCSVM and Siamese CNN scripts for exploring 
+                          the continuous authentication. 
 │
 ├── reports            <- Generated exports/reports as HTML
 │   ├── optimization   <- HTML exports of Notebooks during parameter tuning
@@ -84,21 +66,16 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager@0.38 @jupyterla
 
 jupyter serverextension enable --py jupyterlab_code_formatter
 ```
-
-**Download Dataset:**
-- Download [H-MOG Dataset](http://www.cs.wm.edu/~qyang/hmog.html) and place the zip file as it is into the repository root.
-
-**Run preprocessing steps:**
-```bash
-python -m src.data.make_dataset
-```
-
-This will run the following steps, which also can be executed manually:
-- `python -m src.data.unzip_hmog_dataset` - Unzip into '/data/external' and optionally remove zip file.
-- `python -m src.data.transform_to_hdf` - Reads CSVs, joins sensor data by time index and store it in HDF format in '/data/processed/' with table key `sensors_100hz`
-- `python -m src.data.resample_dataset` - Reads data from HDF, resamples it to 25Hz and stores it as separate table `sensors_25hz` in the same HDF.
-
 **Start Jupyter Lab:**
 ```bash
 jupyter lab
 ```
+**Run exploration-hmog-statistics.ipynb:**
+The notebook contains detailed description of Hmog dataset and data processing steps for creating the scenarios.
+
+**Run ocsvm.ipynb:**
+The notebook contains step wise execution of ocsvm with visualization of the results.
+
+**Run siamese-cnn.ipynb:**
+The notebook contains step wise execution of siamese cnn for feature engineering and invokes ocsvm for classification of the authentication
+
